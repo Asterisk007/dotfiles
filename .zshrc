@@ -8,7 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="asterisk"
+# ZSH_THEME="starship"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -76,6 +76,9 @@ plugins=(
     docker
     docker-compose
     zsh-syntax-highlighting
+    colored-man-pages
+    pip
+    python
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -84,7 +87,7 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-export PATH=$PATH:/home/daniel/.local/bin/
+export PATH=$PATH:/home/daniel/.local/bin/:/home/daniel/.cargo/bin/
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -95,6 +98,12 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
+export WEATHER_CLI_API="109afc77f2e44a4c6f79911c2f9b34ad"
+
+export GOPATH=/home/daniel/go/
+
+export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -112,6 +121,8 @@ alias vimrc="nvim ~/.config/nvim/init.vim"
 alias zshrc="nvim ~/.zshrc"
 alias sourcezsh="source ~/.zshrc"
 alias ls="ls -w60 --color=auto"
+alias python3="python3.10"
+alias python="python3"
 alias py="python"
 alias py2="python2"
 
@@ -119,4 +130,26 @@ ZSH_HIGHLIGHT_STYLES[precommand]='fg=green'
 ZSH_HIGHLIGHT_STYLES[path]=none
 ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
-eval "$(starship init zsh)"
+#eval "$(starship init zsh)"
+eval "$(oh-my-posh prompt init zsh --config ~/.poshthemes/newtron.omp.json)"
+
+#function powerline_precmd() {
+#    PS1="$(powerline-shell --shell zsh $?)"
+#}
+#
+#function install_powerline_precmd() {
+#  for s in "${precmd_functions[@]}"; do
+#    if [ "$s" = "powerline_precmd" ]; then
+#      return
+#    fi
+#  done
+#  precmd_functions+=(powerline_precmd)
+#}
+#
+#if [ "$TERM" != "linux" ]; then
+#    install_powerline_precmd
+#fi
+
+# tabtab source for electron-forge package
+# uninstall by removing these lines or running `tabtab uninstall electron-forge`
+[[ -f /home/daniel/.config/yarn/global/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /home/daniel/.config/yarn/global/node_modules/tabtab/.completions/electron-forge.zsh
