@@ -1,14 +1,16 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export TERM="xterm-256color"
+
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="starship"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -23,14 +25,13 @@ export ZSH=$HOME/.oh-my-zsh
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+ zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -45,8 +46,9 @@ DISABLE_UPDATE_PROMPT="true"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
-# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -70,16 +72,7 @@ DISABLE_UPDATE_PROMPT="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    git
-    ssh-agent
-    docker
-    docker-compose
-    zsh-syntax-highlighting
-    colored-man-pages
-    pip
-    python
-)
+plugins=(git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -87,23 +80,27 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-export PATH=$PATH:/home/daniel/.local/bin/:/home/daniel/.cargo/bin/
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+    autoload -Uz compinit
+    compinit
 fi
 
-export WEATHER_CLI_API="109afc77f2e44a4c6f79911c2f9b34ad"
+export PATH=$PATH:~/.local/bin
+export PATH=$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
 
-export GOPATH=/home/daniel/go/
-
-export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
+source ~/.zsh_aliases
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -116,40 +113,32 @@ export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim="nvim"
-alias vimrc="nvim ~/.config/nvim/init.vim"
-alias zshrc="nvim ~/.zshrc"
-alias sourcezsh="source ~/.zshrc"
-alias ls="ls -w60 --color=auto"
-alias python3="python3.10"
-alias python="python3"
-alias py="python"
-alias py2="python2"
+eval "$(oh-my-posh init zsh --config ~/.poshthemes/newtron.omp.json)"
+eval $(thefuck --alias)
 
-ZSH_HIGHLIGHT_STYLES[precommand]='fg=green'
-ZSH_HIGHLIGHT_STYLES[path]=none
-ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+export UOP="university-of-the-pacific"
+export HISTSIZE=10000
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_SAVE_NO_DUPS
+unsetopt EXTENDED_HISTORY
+unsetopt HIST_VERIFY
 
-#eval "$(starship init zsh)"
-eval "$(oh-my-posh prompt init zsh --config ~/.poshthemes/newtron.omp.json)"
+. ~/z.sh
 
-#function powerline_precmd() {
-#    PS1="$(powerline-shell --shell zsh $?)"
-#}
-#
-#function install_powerline_precmd() {
-#  for s in "${precmd_functions[@]}"; do
-#    if [ "$s" = "powerline_precmd" ]; then
-#      return
-#    fi
-#  done
-#  precmd_functions+=(powerline_precmd)
-#}
-#
-#if [ "$TERM" != "linux" ]; then
-#    install_powerline_precmd
+#if ! (docker ps | grep ddev-ssh-agent >/dev/null 2>&1);  then 
+#    ddev auth ssh; 
 #fi
 
-# tabtab source for electron-forge package
-# uninstall by removing these lines or running `tabtab uninstall electron-forge`
-[[ -f /home/daniel/.config/yarn/global/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /home/daniel/.config/yarn/global/node_modules/tabtab/.completions/electron-forge.zsh
+if tms auth:whoami >/dev/null 2>&1 | grep -q "not logged in"; then
+    tms auth:login;
+fi
+
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[command]=fg=#12BDDE
+ZSH_HIGHLIGHT_STYLES[alias]=fg=#12BDDE
+ZSH_HIGHLIGHT_STYLES[builtin]=fg=#12BDDE
+ZSH_HIGHLIGHT_STYLES[global-alias]=fg=#12BDDE
+ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=#12BDDE,underline
+ZSH_HIGHLIGHT_STYLES[path]=fg=#EBE807,underline
+ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=#00F529
