@@ -6,10 +6,8 @@
       "segments": [
         {
           "foreground": "#FF008C",
-          "properties": {
-            "template": "<#602EBD>\u250f[</>{{ .UserName }}<#602EBD>]</>"
-          },
           "style": "plain",
+          "template": "<#602EBD>\u250f[</>{{ .UserName }}<#602EBD>]</>",
           "type": "session"
         },
         {
@@ -17,62 +15,64 @@
           "properties": {
             "fetch_stash_count": true,
             "fetch_status": true,
-            "fetch_upstream_icon": true,
-            "template": "<#602EBD>--[</>{{ .HEAD }}<#12BDDE>{{ .BranchStatus }}</>{{ if .Working.Changed }}<#12BDDE> \u25cf </>{{ end }}{{ if .Staging.Changed }}<#12BDDE> \u25cf </>{{ end }}<#602EBD>]</>"
+            "fetch_upstream_icon": true
           },
           "style": "plain",
+          "template": "<#602EBD>--[</>{{ .HEAD }}<#12BDDE>{{ .BranchStatus }}</>{{ if .Working.Changed }}<#12BDDE> \u25cf </>{{ end }}{{ if .Staging.Changed }}<#12BDDE> \u25cf </>{{ end }}<#602EBD>]</>",
           "type": "git"
         },
         {
           "foreground": "#F5A623",
-          "properties": {
-            "template": "<#602EBD>--[</>{{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}<#602EBD>]</>"
-          },
           "style": "plain",
+          "template": "<#602EBD>--[</>{{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}<#602EBD>]</>",
           "type": "python"
         },
         {
-          "type": "node",
           "foreground": "#27F523",
           "properties": {
             "fetch_package_manager": true,
-            "yarn_icon": "🧶",
-            "npm_icon": " ",
-            "template": "<#602EBD>--[</>{{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }}<#602EBD>]</>"
+            "npm_icon": " \ue71e",
+            "yarn_icon": "🧶"
           },
-          "style": "plain"
+          "style": "plain",
+          "template": "<#602EBD>--[</>{{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }}<#602EBD>]</>",
+          "type": "node"
         },
         {
           "foreground": "#FF008C",
-          "properties": {
-            "template": "<#602EBD>--[</>{{.Profile}}{{if .Region}}@{{.Region}}{{end}}<#602EBD>]</>"
-          },
           "style": "plain",
+          "template": "<#602EBD>--[</>{{.Profile}}{{if .Region}}@{{.Region}}{{end}}<#602EBD>]</>",
           "type": "aws"
         },
         {
           "foreground": "#FF008C",
-          "properties": {
-            "template": "<#602EBD>--[</>{{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}<#602EBD>]</>"
-          },
           "style": "plain",
+          "template": "<#602EBD>--[</>{{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}<#602EBD>]</>",
           "type": "kubectl"
         },
         {
           "foreground": "#d8dee9",
-          "properties": {
-            "template": "<#602EBD>[</>\uf0e7<#602EBD>]</>"
-          },
           "style": "plain",
+          "template": "<#602EBD>[</>\uf0e7<#602EBD>]</>",
           "type": "root"
         },
         {
           "foreground": "#d8dee9",
-          "properties": {
-            "template": "<#602EBD>[x</>{{ .Meaning }}<#602EBD>]</>"
-          },
           "style": "plain",
+          "template": "<#602EBD>[x</>{{ .Meaning }}<#602EBD>]</>",
           "type": "exit"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "foreground": "#FF008C",
+          "style": "plain",
+          "template": "<#602EBD>[</>{{ .FormattedMs }}<#602EBD>]</>",
+          "type": "executiontime"
         }
       ],
       "type": "prompt"
@@ -84,10 +84,10 @@
         {
           "foreground": "#C3C3C3",
           "properties": {
-            "style": "full",
-            "template": "<#602EBD>\u2516[</>{{ .Path }}<#602EBD>]</>"
+            "style": "full"
           },
           "style": "plain",
+          "template": "<#602EBD>\u2516[</>{{ .Path }}<#602EBD>]</>",
           "type": "path"
         }
       ],
@@ -99,10 +99,8 @@
       "segments": [
         {
           "foreground": "#C3C3C3",
-          "properties": {
-            "template": " \ue602 "
-          },
           "style": "plain",
+          "template": " \ue602 ",
           "type": "text"
         }
       ],
@@ -110,5 +108,5 @@
     }
   ],
   "final_space": true,
-  "version": 1
+  "version": 2
 }
