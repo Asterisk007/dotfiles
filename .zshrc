@@ -90,15 +90,7 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-    autoload -Uz compinit
-    compinit
-fi
-
 export PATH=$PATH:~/.local/bin
-export PATH=$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
 
 source ~/.zsh_aliases
 
@@ -114,25 +106,13 @@ source ~/.zsh_aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 eval "$(oh-my-posh init zsh --config ~/.poshthemes/newtron.omp.json)"
-eval $(thefuck --alias)
 
-export UOP="university-of-the-pacific"
 export HISTSIZE=10000
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_SAVE_NO_DUPS
 unsetopt EXTENDED_HISTORY
 unsetopt HIST_VERIFY
-
-. ~/z.sh
-
-#if ! (docker ps | grep ddev-ssh-agent >/dev/null 2>&1);  then 
-#    ddev auth ssh; 
-#fi
-
-if tms auth:whoami >/dev/null 2>&1 | grep -q "not logged in"; then
-    tms auth:login;
-fi
 
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[command]=fg=#12BDDE
