@@ -1,16 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export TERM="xterm-256color"
-
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -27,7 +25,7 @@ ZSH_THEME="robbyrussell"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
- zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -72,7 +70,14 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting)
+plugins=(
+    git
+    zsh-syntax-highlighting
+    yarn-autocompletions
+    zsh-autosuggestions
+    colored-man-pages
+    tmux
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -90,10 +95,6 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-export PATH=$PATH:~/.local/bin
-
-source ~/.zsh_aliases
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -105,7 +106,16 @@ source ~/.zsh_aliases
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-eval "$(oh-my-posh init zsh --config ~/.poshthemes/newtron.omp.json)"
+
+export TERM="xterm-256color"
+export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/Scripts/
+export PATH=$PATH:~/.composer/vendor/bin
+export PATH=$PATH:/opt/nvim-linux64/bin
+
+. ~/z.sh
+# Get Oh My Posh theme from local install folder
+eval "$(oh-my-posh init zsh --config $HOME/amro_custom.omp.json)"
 
 export HISTSIZE=10000
 setopt HIST_IGNORE_ALL_DUPS
@@ -113,12 +123,23 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_SAVE_NO_DUPS
 unsetopt EXTENDED_HISTORY
 unsetopt HIST_VERIFY
+setopt histignorespace
 
-(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[command]=fg=#12BDDE
-ZSH_HIGHLIGHT_STYLES[alias]=fg=#12BDDE
-ZSH_HIGHLIGHT_STYLES[builtin]=fg=#12BDDE
-ZSH_HIGHLIGHT_STYLES[global-alias]=fg=#12BDDE
-ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=#12BDDE,underline
-ZSH_HIGHLIGHT_STYLES[path]=fg=#EBE807,underline
-ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=#00F529
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$PATH:/snap/bin"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+source ~/.zsh_aliases
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+echo -e -n "\e[2 q"
+
+export LESS="-R --mouse --wheel-lines=3"
+
+bindkey '^[v' .describe-key-briefly
+# Autostart into tmux
+#ZSH_TMUX_AUTOSTART=true
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=blue,bold'

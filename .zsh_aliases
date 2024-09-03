@@ -1,0 +1,6 @@
+alias vim="nvim"
+alias cat="batcat --paging=never"
+alias e="nvim"
+alias python="python3.10"
+alias py="python"
+alias ls="ls -1 --color=auto"

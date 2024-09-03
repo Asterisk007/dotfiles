@@ -8,14 +8,15 @@ then
     exit 1
 fi
 
-echo "Installing paru"
-sudo pacman -S --needed base-devel git
-git clone https://aur.archlinux.org/paru.git
-cd paru
-makepkg -si
+if [[ $(which paru) == "" ]]
+then
+    echo "Installing paru"
+    sudo pacman -S --needed base-devel git
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si
+fi
 
 cd ~
 echo "Installing neovim"
 paru -S neovim
-
-
