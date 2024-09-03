@@ -1,6 +1,7 @@
 # Personal dotfiles
 
 - **Terminal**: [Hyper](https://hyper.is/)
+    - Colorscheme mostly based on [Gogh Aco](https://github.com/Gogh-Co/Gogh/blob/master/themes/Aco.yml)
 - **Shell**: zsh
     - **Additions**: Oh My Zsh, [Oh My Posh](https://ohmyposh.dev/)
 - **Command-line editor**: Neovim
