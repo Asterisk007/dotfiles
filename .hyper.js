@@ -21,20 +21,15 @@ module.exports = {
         // letter spacing as a relative unit
         letterSpacing: 0,
         // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-        cursorColor: 'rgba(255, 0, 140,0.8)',
+        // default color
+        //cursorColor: 'rgba(255, 0, 140, 0.8)',
+        cursorColor: 'rgba(200, 200, 200, 0.8)',
         // terminal text color under BLOCK cursor
         cursorAccentColor: '#000',
         // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
         cursorShape: 'BLOCK',
         // set to `true` (without backticks and without quotes) for blinking cursor
         cursorBlink: false,
-        // color of the text
-        foregroundColor: '#fff',
-        // terminal background color
-        // opacity is only supported on macOS
-        backgroundColor: '#111',
-        // terminal selection color
-        selectionColor: 'rgba(248,28,229,0.3)',
         // border color (window, tabs)
         borderColor: '#333',
         // custom CSS to embed in the main window
@@ -54,12 +49,11 @@ module.exports = {
         padding: '12px 14px',
         hyperBorder: {
             borderWidth: "2px",
-            borderRadiusInner: "8px",
-            borderRadiusOuter: "0",
+            borderRadiusInner: "0px",
+            borderRadiusOuter: "0px",
             borderColors: [
-                "#FF008C", // pink
-                "#602EBD", // purple
                 "#12BDDE", // cyan
+                "#093d6e", // darker blue
             ],
             animate: false
         },
@@ -67,25 +61,31 @@ module.exports = {
         // including the 6 x 6 color cubes and the grayscale map, just provide
         // an array here instead of a color map object
         colors: {
-            black: '#000000',
-            red: '#C51E14',
-            green: '#1DC121',
-            yellow: '#C7C329',
-            blue: '#0A2FC4',
-            magenta: '#C839C5',
-            cyan: '#20C5C6',
-            white: '#C7C7C7',
-            lightBlack: '#686868',
-            lightRed: '#FD6F6B',
-            lightGreen: '#67F86F',
-            lightYellow: '#FFFA72',
-            lightBlue: '#6A76FB',
-            lightMagenta: '#FD7CFC',
-            lightCyan: '#68FDFE',
-            lightWhite: '#FFFFFF',
-            limeGreen: '#32CD32',
-            lightCoral: '#F08080',
+            black: "#3F3F3F",
+            red: "#FF0883",
+            green: "#83FF08",
+            yellow: "#FF8308",
+            blue: "#0883FF",
+            magenta: "#8308FF",
+            cyan: "#08FF83",
+            white: "#BEBEBE",
+            lightBlack: "#474747",
+            lightRed: "#FF1E8E",
+            lightGreen: "#8EFF1E",
+            lightYellow: "#FF8E1E",
+            lightBlue: "#1E8EFF",
+            lightMagenta: "#8E1EFF",
+            lightCyan: "#1EFF8E",
+            lightWhite: "#555555",
         },
+        // terminal background color
+        // opacity is only supported on macOS
+        backgroundColor: '#0F0F0F',
+        // color of the text
+        foregroundColor: '#f2f2f2',
+        // terminal selection color
+        selectionColor: '#FFFFFF',
+        
         // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
         // if left empty, your system's login shell will be used by default
         //
@@ -104,7 +104,7 @@ module.exports = {
         //
         // Cygwin
         // - Example: `C:\\cygwin64\\bin\\bash.exe`
-        shell: '',
+        shell: 'zsh',
         // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
         // by default `['--login']` will be used
         shellArgs: ['--login'],
@@ -113,7 +113,7 @@ module.exports = {
         // Supported Options:
         //  1. 'SOUND' -> Enables the bell as a sound
         //  2. false: turns off the bell
-        bell: 'false',
+        bell: 'SOUND',
         // An absolute file path to a sound file on the machine.
         // bellSoundURL: '/path/to/sound/file',
         // if `true` (without backticks and without quotes), selected text will automatically be copied to the clipboard
@@ -150,7 +150,12 @@ module.exports = {
     //   `@company/project`
     //   `project#1.0.1`
     plugins: [
-        'hyperborder'
+        'hyperborder',
+        'hyper-single-instance',
+        'hyper-quit',
+        'hyper-confirm',
+        'hyper-tab-icons',
+        'hyperterm-cursor'
     ],
     // in development, you can create a directory under
     // `~/.hyper_plugins/local/` and include it here
