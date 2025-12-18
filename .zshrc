@@ -157,6 +157,9 @@ bindkey '^[v' .describe-key-briefly
 # Autostart into tmux
 #ZSH_TMUX_AUTOSTART=true
 ZSH_HIGHLIGHT_STYLES[precommand]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[command]='fg=#c8ff00'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#c8ff00'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#c8ff00'
 export BROWSER=wslview
 
 export NVM_DIR="$HOME/.nvm"
