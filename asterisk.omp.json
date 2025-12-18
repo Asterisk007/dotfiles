@@ -8,7 +8,7 @@
         "alignment": "left",
         "segments": [
             {
-                "background": "#0CA0D8",
+                "background": "#00c3ff",
                 "foreground": "#000",
                 "powerline_symbol": "",
                 "leading_powerline_symbol": "█",
