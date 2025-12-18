@@ -25,7 +25,7 @@ ZSH_THEME=""
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -73,7 +73,7 @@ ZSH_THEME=""
 plugins=(
     git
     zsh-syntax-highlighting
-    yarn-autocompletions
+    #yarn-autocompletions
     zsh-autosuggestions
     colored-man-pages
     tmux
@@ -114,32 +114,75 @@ export PATH=$PATH:~/.composer/vendor/bin
 export PATH=$PATH:/opt/nvim-linux64/bin
 
 . ~/z.sh
-# Get Oh My Posh theme from local install folder
-eval "$(oh-my-posh init zsh --config $HOME/amro_custom.omp.json)"
+# Set up linux Homebrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# Apply Oh My Posh theme
+eval "$(oh-my-posh init zsh --config $HOME/asterisk.omp.json)"
 
+export UOP="university-of-the-pacific"
+export uop=$UOP
 export HISTSIZE=10000
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_SPACE
 unsetopt EXTENDED_HISTORY
 unsetopt HIST_VERIFY
-setopt histignorespace
 
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="$HOME/.gem/ruby/3.3.0/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/php@8.1/bin:$PATH"
+export PATH="/usr/local/opt/php@8.1/sbin:$PATH"
+export PATH="$PATH:$HOME/.composer/vendor/bin"
+export PATH="$HOME/.new_local/share/pyenv/versions/3.10.10/bin:$PATH"
 export PATH="$PATH:/snap/bin"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.new_local/bin:$PATH"
+# Mac-specific path for Android CLI tools
+if [[ $(uname) == "Darwin" ]]; then
+    export PATH="$PATH:/Users/delling3/Library/Android/sdk/platform-tools"
+fi
 
 source ~/.zsh_aliases
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 echo -e -n "\e[2 q"
 
-export LESS="-R --mouse --wheel-lines=3"
+export MOAR="--mousemode=select"
+export PAGER=moar
+export MANPAGER=$PAGER
 
 bindkey '^[v' .describe-key-briefly
 # Autostart into tmux
 #ZSH_TMUX_AUTOSTART=true
 ZSH_HIGHLIGHT_STYLES[precommand]='fg=blue,bold'
+export BROWSER=wslview
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local nvmrc_path
+  nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version
+    nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+      nvm use
+    fi
+  elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+
+export LOCAL_ADMIN="delling3"
