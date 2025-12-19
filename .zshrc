@@ -116,8 +116,6 @@ export PATH=$PATH:/opt/nvim-linux64/bin
 . ~/z.sh
 # Set up linux Homebrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-# Apply Oh My Posh theme
-eval "$(oh-my-posh init zsh --config $HOME/asterisk.omp.json)"
 
 export UOP="university-of-the-pacific"
 export uop=$UOP
@@ -137,7 +135,6 @@ export PATH="/usr/local/opt/php@8.1/sbin:$PATH"
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 export PATH="$HOME/.new_local/share/pyenv/versions/3.10.10/bin:$PATH"
 export PATH="$PATH:/snap/bin"
-
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.new_local/bin:$PATH"
 # Mac-specific path for Android CLI tools
@@ -189,3 +186,6 @@ add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
 export LOCAL_ADMIN="delling3"
+
+# Apply Oh My Posh theme
+eval "$(oh-my-posh init zsh --config $HOME/asterisk.omp.json)"
